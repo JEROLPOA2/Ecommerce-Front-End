@@ -1,0 +1,106 @@
+<div class="container">
+  <header class="header">
+    <h1>E-commerce Neural Network Models Playground</h1>
+  </header>
+
+  <!-- Formulario 1: Modelo de Predicción de Demanda -->
+  <div class="form-section">
+    <h2>Demand Time Series Predicition Model</h2>
+    <form [formGroup]="demandForm" (ngSubmit)="submitDemandForm()">
+      <!-- Selección de Fecha -->
+      <div class="form-group">
+        <h3 for="date">Date</h3>
+        <p-calendar
+          formControlName="date"
+          placeholder="Select a date after nov-2012"
+          inputId="date"
+          [style]="{ width: '300px' }"
+        ></p-calendar>
+      </div>
+
+      <!-- Selección de Día Festivo -->
+      <div class="form-group">
+        <h3>¿Is your date a holiday?</h3>
+        <div>
+          <p-radioButton
+            name="holiday"
+            value="yes"
+            formControlName="holiday"
+            inputId="holidayYes"
+          ></p-radioButton>
+          <label for="holidayYes">Si</label>
+        </div>
+
+        <div>
+          <p-radioButton
+            name="holiday"
+            value="no"
+            formControlName="holiday"
+            inputId="holidayNo"
+          ></p-radioButton>
+          <label for="holidayNo">No</label>
+        </div>
+      </div>
+
+      <!-- Ingreso de Temperatura -->
+      <div class="form-group">
+        <h3 for="temperature">
+          Select the aproximate °C Temperature of that day
+        </h3>
+        <p-inputNumber
+          formControlName="temperature"
+          placeholder="Select the aproximate °C Temperature of that day"
+          [useGrouping]="false"
+          inputId="temperature"
+        ></p-inputNumber>
+      </div>
+
+      <button pButton type="submit" label="Send"></button>
+    </form>
+    <p class="result">{{ demandResult }}</p>
+  </div>
+
+  <!-- Formulario 2: Modelo de Clasificación de Imágenes -->
+  <div class="form-section">
+    <h2>Images Classifier Model</h2>
+    <form [formGroup]="imageForm" (ngSubmit)="submitImageForm()">
+      <!-- Selección de Imagen -->
+      <div class="form-group">
+        <label for="imageUpload">Image</label>
+        <p-fileUpload
+          name="image"
+          mode="basic"
+          auto="true"
+          [chooseLabel]="
+            imageSelected ? 'Update image' : 'Upload an image of a product'
+          "
+          (onSelect)="onImageSelected($event)"
+          inputId="imageUpload"
+        ></p-fileUpload>
+      </div>
+
+      <button pButton type="submit" label="Send" class="mt-4"></button>
+    </form>
+    <p class="result">{{ imageResult }}</p>
+  </div>
+
+  <!-- Formulario 3: Modelo de Generación de Texto -->
+  <div class="form-section">
+    <h2>Text Generation Model</h2>
+    <form [formGroup]="textForm" (ngSubmit)="submitTextForm()">
+      <!-- Ingreso de Texto -->
+      <div class="form-group">
+        <label for="inputText">Type the ID of your product</label>
+        <input
+          pInputText
+          formControlName="inputText"
+          placeholder="Escribe un texto"
+          id="inputText"
+        />
+      </div>
+
+      <button pButton type="submit" label="Send" class="mt-4"></button>
+    </form>
+    <p class="result">{{ textResult }}</p>
+  </div>
+</div>
