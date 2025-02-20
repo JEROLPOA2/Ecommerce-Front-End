@@ -86,15 +86,15 @@
 
   <!-- Formulario 3: Modelo de Generación de Texto -->
   <div class="form-section">
-    <h2>Text Generation Model</h2>
+    <h2>Product Recommendation Model</h2>
     <form [formGroup]="textForm" (ngSubmit)="submitTextForm()">
       <!-- Ingreso de Texto -->
       <div class="form-group">
-        <label for="product_id">Type the ID of your product</label>
+        <label for="product_id">Type the ID of a liked product</label>
         <input
           pInputText
           formControlName="product_id"
-          placeholder="Escribe un texto"
+          placeholder="ID"
           id="product_id"
         />
       </div>
