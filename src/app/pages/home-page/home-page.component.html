@@ -66,7 +66,7 @@
     <form [formGroup]="imageForm" (ngSubmit)="submitImageForm()">
       <!-- Selección de Imagen -->
       <div class="form-group">
-        <label for="imageUpload">Image</label>
+        <label for="image_file">Image</label>
         <p-fileUpload
           name="image_file"
           mode="basic"
@@ -75,7 +75,7 @@
             imageSelected ? 'Update image' : 'Upload an image of a product'
           "
           (onSelect)="onImageSelected($event)"
-          inputId="imageUpload"
+          inputId="image_file"
         ></p-fileUpload>
       </div>
 
