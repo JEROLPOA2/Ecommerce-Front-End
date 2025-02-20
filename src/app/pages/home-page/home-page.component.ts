@@ -49,7 +49,7 @@ export class HomePageComponent {
     });
 
     this.textForm = this.fb.group({
-      inputText: [''],
+      product_id: [''],
     });
   }
 
@@ -87,6 +87,7 @@ export class HomePageComponent {
         console.log('Respuesta del backend:', response);
         // Se asume que el backend devuelve un objeto { result: <número> }
         this.demandResult = response.result;
+        console.log('Demanda:', this.demandResult);
       },
       error: (error) => {
         console.error('Error al llamar al backend:', error);
@@ -104,7 +105,8 @@ export class HomePageComponent {
       this.modelService.sendImage(formData).subscribe({
         next: (response) => {
           console.log('Respuesta del backend:', response);
-          this.imageResult = response.result;
+          this.imageResult = response;
+          console.log('Clase:', this.imageResult);
         },
         error: (error) => {
           console.error('Error al enviar la imagen:', error);
@@ -117,12 +119,35 @@ export class HomePageComponent {
 
   submitTextForm() {
     console.log('Formulario de Generación de Texto enviado');
-    const formData = this.textForm.value; // { inputText: 'texto ingresado' }
+    const productId = this.textForm.value.product_id;
 
-    this.modelService.getTextGenerator(formData).subscribe({
+    this.modelService.getTextGenerator(productId).subscribe({
       next: (response) => {
-        console.log('Respuesta del backend:', response);
-        this.textResult = response.result;
+        /*
+         Suponiendo que response es un array de objetos con la siguiente forma:
+         {
+            "product_id": 22657,
+            "name": "kleio womens ...",
+            "main_category": "accessories",
+            "sub_category": "Handbags And Clutches",
+            "ratings": "5.0",
+            "similarity_score": 0.99754
+         }
+         */
+
+        // Formateamos cada objeto para imprimirlo tal y como se desea
+        this.textResult = response.map((item: any) => {
+          return (
+            `main_category:  "${item.main_category}"\n` +
+            `name:  "${item.name}"\n` +
+            `product_id:  ${item.product_id}\n` +
+            `ratings:  "${item.ratings}"\n` +
+            `similarity_score:  ${item.similarity_score}\n` +
+            `sub_category:  "${item.sub_category}"\n\n`
+          );
+        });
+
+        console.log('Respuesta formateada:', this.textResult);
       },
       error: (error) => {
         console.error('Error al generar texto:', error);

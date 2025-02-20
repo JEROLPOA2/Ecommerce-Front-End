@@ -90,17 +90,17 @@
     <form [formGroup]="textForm" (ngSubmit)="submitTextForm()">
       <!-- Ingreso de Texto -->
       <div class="form-group">
-        <label for="inputText">Type the ID of your product</label>
+        <label for="product_id">Type the ID of your product</label>
         <input
           pInputText
-          formControlName="inputText"
+          formControlName="product_id"
           placeholder="Escribe un texto"
-          id="inputText"
+          id="product_id"
         />
       </div>
 
       <button pButton type="submit" label="Send" class="mt-4"></button>
     </form>
-    <p class="result">{{ textResult }}</p>
+    <pre class="result">{{ textResult }}</pre>
   </div>
 </div>
