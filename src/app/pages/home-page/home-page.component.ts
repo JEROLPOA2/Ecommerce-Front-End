@@ -98,7 +98,7 @@ export class HomePageComponent {
     if (this.selectedImage) {
       console.log('Formulario de Clasificación de Imágenes enviado');
       const formData = new FormData();
-      formData.append('image', this.selectedImage);
+      formData.append('image_file', this.selectedImage);
 
       // Llamada al servicio para enviar la imagen
       this.modelService.sendImage(formData).subscribe({
