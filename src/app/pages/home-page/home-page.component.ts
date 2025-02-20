@@ -45,7 +45,7 @@ export class HomePageComponent {
     });
 
     this.imageForm = this.fb.group({
-      image: [null],
+      image_file: [null],
     });
 
     this.textForm = this.fb.group({
