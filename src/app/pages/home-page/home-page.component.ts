@@ -9,6 +9,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ModelService } from '../../services/model.service';
 
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-home-page',
   standalone: true,
@@ -21,6 +23,7 @@ import { ModelService } from '../../services/model.service';
     FileUploadModule,
     InputTextModule,
     ButtonModule,
+    CommonModule,
   ],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
@@ -28,13 +31,14 @@ import { ModelService } from '../../services/model.service';
 export class HomePageComponent {
   demandForm: FormGroup;
   imageForm: FormGroup;
-  imageSelected: Boolean = false;
   textForm: FormGroup;
 
+  // Variable para almacenar el data URL de la imagen (cadena base64 convertida)
   demandResult: string = '';
   imageResult: string = '';
   textResult: string = '';
 
+  imageSelected: boolean = false;
   selectedImage: File | null = null;
 
   constructor(private fb: FormBuilder, private modelService: ModelService) {
@@ -75,19 +79,19 @@ export class HomePageComponent {
     // "date": string, "isHoliday": boolean, "temperature": number
     const payload = {
       date: date,
-      isHoliday: formData.holiday === 'yes', // true si es "yes", false de lo contrario
+      isHoliday: formData.holiday === 'yes',
       temperature: Number(formData.temperature),
     };
 
     console.log('Payload a enviar:', payload);
 
-    // Realizar la llamada al backend mediante el servicio.
+    // Llamada al backend mediante el servicio.
     this.modelService.getTimeSeries(payload).subscribe({
       next: (response) => {
         console.log('Respuesta del backend:', response);
-        // Se asume que el backend devuelve un objeto { result: <número> }
+        // response.result ya es un data URL listo para asignar al src de una imagen
         this.demandResult = response.result;
-        console.log('Demanda:', this.demandResult);
+        console.log('Imagen demandada:', this.demandResult);
       },
       error: (error) => {
         console.error('Error al llamar al backend:', error);
@@ -101,7 +105,6 @@ export class HomePageComponent {
       const formData = new FormData();
       formData.append('image_file', this.selectedImage);
 
-      // Llamada al servicio para enviar la imagen
       this.modelService.sendImage(formData).subscribe({
         next: (response) => {
           console.log('Respuesta del backend:', response);
@@ -123,19 +126,6 @@ export class HomePageComponent {
 
     this.modelService.getTextGenerator(productId).subscribe({
       next: (response) => {
-        /*
-         Suponiendo que response es un array de objetos con la siguiente forma:
-         {
-            "product_id": 22657,
-            "name": "kleio womens ...",
-            "main_category": "accessories",
-            "sub_category": "Handbags And Clutches",
-            "ratings": "5.0",
-            "similarity_score": 0.99754
-         }
-         */
-
-        // Formateamos cada objeto para imprimirlo tal y como se desea
         this.textResult = response.map((item: any) => {
           return (
             `main_category:  "${item.main_category}"\n` +
@@ -146,7 +136,6 @@ export class HomePageComponent {
             `sub_category:  "${item.sub_category}"\n\n`
           );
         });
-
         console.log('Respuesta formateada:', this.textResult);
       },
       error: (error) => {

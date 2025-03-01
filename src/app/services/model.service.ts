@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,15 @@ export class ModelService {
   constructor(private http: HttpClient) {}
 
   getTimeSeries(data: any): Observable<any> {
-    return this.http.post<any>(this.timeSeries, data);
+    return this.http.post<any>(this.timeSeries, data).pipe(
+      map((response) => {
+        // Suponiendo que response.result es la cadena base64
+        const base64 = response.result.trim();
+        // Se construye el data URL para que se pueda mostrar la imagen en un <img>
+        response.result = 'data:image/png;base64,' + base64;
+        return response;
+      })
+    );
   }
 
   // Envío de imagen al backend

@@ -30,7 +30,6 @@
           ></p-radioButton>
           <label for="holidayYes">Si</label>
         </div>
-
         <div>
           <p-radioButton
             name="holiday"
@@ -57,8 +56,18 @@
 
       <button pButton type="submit" label="Send"></button>
     </form>
-    <p class="result">{{ demandResult }}</p>
+
+    <!-- Sección para mostrar la imagen decodificada -->
+    <div class="result" *ngIf="demandResult">
+      <img
+        [src]="demandResult"
+        alt="Demand Time Series"
+        style="max-width: 100%; height: auto"
+      />
+    </div>
   </div>
+
+  <!-- Los demás formularios (imagen y texto) se mantienen igual -->
 
   <!-- Formulario 2: Modelo de Clasificación de Imágenes -->
   <div class="form-section">
