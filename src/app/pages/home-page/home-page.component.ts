@@ -8,8 +8,9 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ModelService } from '../../services/model.service';
-
 import { CommonModule } from '@angular/common';
+
+import { ProductCardsComponent } from '../../components/product-cards/product-cards.component';
 
 @Component({
   selector: 'app-home-page',
@@ -24,6 +25,7 @@ import { CommonModule } from '@angular/common';
     InputTextModule,
     ButtonModule,
     CommonModule,
+    ProductCardsComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
@@ -118,29 +120,5 @@ export class HomePageComponent {
     } else {
       console.log('No se seleccionó ninguna imagen');
     }
-  }
-
-  submitTextForm() {
-    console.log('Formulario de Generación de Texto enviado');
-    const productId = this.textForm.value.product_id;
-
-    this.modelService.getTextGenerator(productId).subscribe({
-      next: (response) => {
-        this.textResult = response.map((item: any) => {
-          return (
-            `main_category:  "${item.main_category}"\n` +
-            `name:  "${item.name}"\n` +
-            `product_id:  ${item.product_id}\n` +
-            `ratings:  "${item.ratings}"\n` +
-            `similarity_score:  ${item.similarity_score}\n` +
-            `sub_category:  "${item.sub_category}"\n\n`
-          );
-        });
-        console.log('Respuesta formateada:', this.textResult);
-      },
-      error: (error) => {
-        console.error('Error al generar texto:', error);
-      },
-    });
   }
 }

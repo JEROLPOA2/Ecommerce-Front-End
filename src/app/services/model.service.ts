@@ -15,6 +15,9 @@ export class ModelService {
   private textGenerator =
     'https://recomdenderapi.onrender.com/recommendations/by-product-id';
 
+  private randomProducts =
+    'https://recomdenderapi.onrender.com/getRandomProducts';
+
   constructor(private http: HttpClient) {}
 
   getTimeSeries(data: any): Observable<any> {
@@ -44,5 +47,9 @@ export class ModelService {
     return this.http.get<any>(this.textGenerator, {
       params: { product_id: productId },
     });
+  }
+
+  getRandomProducts(): Observable<any> {
+    return this.http.get<any>(this.randomProducts);
   }
 }

@@ -93,23 +93,8 @@
     <p class="result">{{ imageResult }}</p>
   </div>
 
-  <!-- Formulario 3: Modelo de Generación de Texto -->
+  <!-- Modelo de Generación de Texto -->
   <div class="form-section">
-    <h2>Product Recommendation Model</h2>
-    <form [formGroup]="textForm" (ngSubmit)="submitTextForm()">
-      <!-- Ingreso de Texto -->
-      <div class="form-group">
-        <label for="product_id">Type the ID of a liked product</label>
-        <input
-          pInputText
-          formControlName="product_id"
-          placeholder="ID"
-          id="product_id"
-        />
-      </div>
-
-      <button pButton type="submit" label="Send" class="mt-4"></button>
-    </form>
-    <pre class="result">{{ textResult }}</pre>
+    <app-product-cards></app-product-cards>
   </div>
 </div>
