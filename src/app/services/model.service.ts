@@ -9,14 +9,14 @@ import { map } from 'rxjs/operators';
 export class ModelService {
   // Endpoints de tu backend
   private timeSeries =
-    'https://ecommerce-back-end-y01i.onrender.com/api/get-time-series';
+    'https://coral-app-f3pob.ondigitalocean.app/get-time-series';
   private imageClassifier =
-    'https://ecommerce-back-end-y01i.onrender.com/api/get-image-classifier';
+    'https://goldfish-app-x9h7b.ondigitalocean.app/get-image-classifier';
   private textGenerator =
-    'https://recomdenderapi.onrender.com/recommendations/by-product-id';
+    'https://goldfish-app-x9h7b.ondigitalocean.app/recommendations/by-product-id';
 
   private randomProducts =
-    'https://recomdenderapi.onrender.com/getRandomProducts';
+    'https://goldfish-app-x9h7b.ondigitalocean.app/getRandomProducts';
 
   constructor(private http: HttpClient) {}
 
@@ -44,7 +44,7 @@ export class ModelService {
   // Solicitud GET con parámetro en la query (product_id)
   getTextGenerator(productId: string): Observable<any> {
     console.log('Enviando texto para generación con ID:', productId);
-    return this.http.get<any>(this.textGenerator, {
+    return this.http.post<any>(this.textGenerator, {
       params: { product_id: productId },
     });
   }
