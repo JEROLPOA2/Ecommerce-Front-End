@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
 export class ModelService {
   // Endpoints de tu backend
   private timeSeries =
-    'https://coral-app-f3pob.ondigitalocean.app/get-time-series';
+    'https://coral-app-f3pob.ondigitalocean.app/api/get-time-series';
   private imageClassifier =
-    'https://goldfish-app-x9h7b.ondigitalocean.app/get-image-classifier';
+    'https://goldfish-app-x9h7b.ondigitalocean.app/api/get-image-classifier';
   private textGenerator =
     'https://goldfish-app-x9h7b.ondigitalocean.app/recommendations/by-product-id';
 
@@ -44,9 +44,7 @@ export class ModelService {
   // Solicitud GET con parámetro en la query (product_id)
   getTextGenerator(productId: string): Observable<any> {
     console.log('Enviando texto para generación con ID:', productId);
-    return this.http.post<any>(this.textGenerator, {
-      params: { product_id: productId },
-    });
+    return this.http.get<any>(`${this.textGenerator}?product_id=${productId}`);
   }
 
   getRandomProducts(): Observable<any> {
