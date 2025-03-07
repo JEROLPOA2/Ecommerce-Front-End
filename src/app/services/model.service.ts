@@ -11,7 +11,7 @@ export class ModelService {
   private timeSeries =
     'https://coral-app-f3pob.ondigitalocean.app/api/get-time-series';
   private imageClassifier =
-    'https://goldfish-app-x9h7b.ondigitalocean.app/api/get-image-classifier';
+    'https://coral-app-f3pob.ondigitalocean.app/api/get-image-classifier';
   private textGenerator =
     'https://goldfish-app-x9h7b.ondigitalocean.app/recommendations/by-product-id';
 
