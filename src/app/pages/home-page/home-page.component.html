@@ -14,7 +14,7 @@
           formControlName="date"
           placeholder="Select a date after nov-2012"
           inputId="date"
-          [style]="{ width: '300px' }"
+          [style]="{ width: '400px' }"
         ></p-calendar>
       </div>
 
@@ -44,11 +44,11 @@
       <!-- Ingreso de Temperatura -->
       <div class="form-group">
         <h3 for="temperature">
-          Select the aproximate °C Temperature of that day
+          Select the aproximate °C Temperature of the day
         </h3>
         <p-inputNumber
           formControlName="temperature"
-          placeholder="Select the aproximate °C Temperature of that day"
+          placeholder="Select the aproximate °C Temperature of the day"
           [useGrouping]="false"
           inputId="temperature"
         ></p-inputNumber>
@@ -56,6 +56,10 @@
 
       <button pButton type="submit" label="Send"></button>
     </form>
+
+    <div *ngIf="demandFormLoading">
+      <p>Cargando clasificación...</p>
+    </div>
 
     <!-- Sección para mostrar la imagen decodificada -->
     <div class="result" *ngIf="demandResult">
@@ -86,10 +90,16 @@
           (onSelect)="onImageSelected($event)"
           inputId="image_file"
         ></p-fileUpload>
+        <p *ngIf="imageSelected">{{ selectedImage?.name }}</p>
       </div>
 
       <button pButton type="submit" label="Send" class="mt-4"></button>
     </form>
+
+    <div *ngIf="imageFormLoading">
+      <p>Cargando clasificación...</p>
+    </div>
+
     <p class="result">{{ imageResult }}</p>
   </div>
 

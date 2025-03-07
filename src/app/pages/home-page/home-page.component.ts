@@ -42,6 +42,8 @@ export class HomePageComponent {
 
   imageSelected: boolean = false;
   selectedImage: File | null = null;
+  imageFormLoading: boolean = false;
+  demandFormLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private modelService: ModelService) {
     this.demandForm = this.fb.group({
@@ -85,6 +87,7 @@ export class HomePageComponent {
       temperature: Number(formData.temperature),
     };
 
+    this.demandFormLoading = true;
     console.log('Payload a enviar:', payload);
 
     // Llamada al backend mediante el servicio.
@@ -94,9 +97,11 @@ export class HomePageComponent {
         // response.result ya es un data URL listo para asignar al src de una imagen
         this.demandResult = response.result;
         console.log('Imagen demandada:', this.demandResult);
+        this.demandFormLoading = false;
       },
       error: (error) => {
         console.error('Error al llamar al backend:', error);
+        this.demandFormLoading = false;
       },
     });
   }
@@ -106,15 +111,18 @@ export class HomePageComponent {
       console.log('Formulario de Clasificación de Imágenes enviado');
       const formData = new FormData();
       formData.append('image_file', this.selectedImage);
+      this.imageFormLoading = true;
 
       this.modelService.sendImage(formData).subscribe({
         next: (response) => {
           console.log('Respuesta del backend:', response);
           this.imageResult = response;
           console.log('Clase:', this.imageResult);
+          this.imageFormLoading = false;
         },
         error: (error) => {
           console.error('Error al enviar la imagen:', error);
+          this.imageFormLoading = false;
         },
       });
     } else {
