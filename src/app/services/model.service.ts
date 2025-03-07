@@ -44,7 +44,7 @@ export class ModelService {
   // Solicitud GET con parámetro en la query (product_id)
   getTextGenerator(productId: string): Observable<any> {
     console.log('Enviando texto para generación con ID:', productId);
-    return this.http.get<any>(`${this.textGenerator}?product_id=${productId}`);
+    return this.http.get<any>(`${this.textGenerator}/?product_id=${productId}`);
   }
 
   getRandomProducts(): Observable<any> {
