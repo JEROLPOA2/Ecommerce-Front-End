@@ -6,6 +6,12 @@
   <!-- Formulario 1: Modelo de Predicción de Demanda -->
   <div class="form-section">
     <h2>Demand Time Series Predicition Model</h2>
+
+    <h4>
+      This model will return a weekly prediction of the store sales starting in
+      2012-10 until the requested date.
+    </h4>
+
     <form [formGroup]="demandForm" (ngSubmit)="submitDemandForm()">
       <!-- Selección de Fecha -->
       <div class="form-group">
@@ -58,7 +64,7 @@
     </form>
 
     <div *ngIf="demandFormLoading">
-      <p>Cargando clasificación...</p>
+      <p>Demand predictions loading...</p>
     </div>
 
     <!-- Sección para mostrar la imagen decodificada -->
@@ -76,6 +82,12 @@
   <!-- Formulario 2: Modelo de Clasificación de Imágenes -->
   <div class="form-section">
     <h2>Images Classifier Model</h2>
+
+    <h4>
+      This model will return a product category in where the submited object
+      should fit
+    </h4>
+
     <form [formGroup]="imageForm" (ngSubmit)="submitImageForm()">
       <!-- Selección de Imagen -->
       <div class="form-group">
@@ -97,7 +109,7 @@
     </form>
 
     <div *ngIf="imageFormLoading">
-      <p>Cargando clasificación...</p>
+      <p>Loading classification...</p>
     </div>
 
     <p class="result">{{ imageResult }}</p>
@@ -105,6 +117,13 @@
 
   <!-- Modelo de Generación de Texto -->
   <div class="form-section">
+    <h2>Text Generation Model</h2>
+
+    <h4>
+      This model returns some products that might interest a user who has chosen
+      one of the products shown in the cards.
+    </h4>
+
     <app-product-cards></app-product-cards>
   </div>
 </div>
